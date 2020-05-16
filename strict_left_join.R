@@ -1,4 +1,8 @@
-strict_left_join <- function(x, y, by = NULL, suffix = c("", ".y")) {
+`%>%` <- magrittr::`%>%`
+
+strict_left_join <- function(x, y, by = NULL, suffix = c("", ".y"), strictness = c("error", "warning", "none")) {
+  if(!any(c(is.data.frame(x), is.data.frame(y)))) {stop("'x' and 'y' needs to be data frames")}
+  strictness <- match.arg(strictness)
   y <- y %>% 
     dplyr::group_by_at(dplyr::vars(tidyselect::all_of(by))) %>% 
     dplyr::mutate(n__ = n()) %>% 
@@ -20,3 +24,5 @@ strict_left_join <- function(x, y, by = NULL, suffix = c("", ".y")) {
   
   dplyr::left_join(x, y, by = by, suffix = suffix)
 }
+
+strict_left_join(mtcars, mtcars, strictness = "error")
