@@ -38,6 +38,6 @@ y <- tibble(id = c(1, 2, 2, 3),
                 favorit_fruit = fruit[1:4]); y
 
 ### Function behaviour ###
+strict_left_join(x, y, by = "id")
 strict_left_join(x, y, by = "id", strictness = "error")
 strict_left_join(x, y, by = "id", strictness = "block")
-strict_left_join(x, y, by = "id", strictness = "none")
