@@ -2,7 +2,7 @@ library(dplyr, warn.conflicts = F)
 library(stringr)
 
 ### strict_left_join ###
-strict_left_join <- function(x, y, by = NULL, suffix = c("", ".y"), strictness = c("error", "warning", "none")) {
+strict_left_join <- function(x, y, by = NULL, suffix = c("", ".y"), strictness = c("error", "block", "none")) {
   if(!any(c(is.data.frame(x), is.data.frame(y)))) {stop("'x' and 'y' needs to be data frames")}
   strictness <- match.arg(strictness)
   y <- y %>% 
@@ -39,5 +39,5 @@ y <- tibble(id = c(1, 2, 2, 3),
 
 ### Function behaviour ###
 strict_left_join(x, y, by = "id", strictness = "error")
-strict_left_join(x, y, by = "id", strictness = "warning")
+strict_left_join(x, y, by = "id", strictness = "block")
 strict_left_join(x, y, by = "id", strictness = "none")
